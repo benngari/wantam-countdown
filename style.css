@@ -22,6 +22,7 @@ html,body{
 }
 
 body{
+  padding:26px;
   background-image:
     radial-gradient(ellipse at 20% 0%, rgba(206,17,38,0.10), transparent 55%),
     radial-gradient(ellipse at 85% 20%, rgba(4,106,56,0.12), transparent 50%);
@@ -273,34 +274,58 @@ footer{
   letter-spacing:0.04em;
 }
 
-/* chant marquee */
-.chant{
-  position:relative;
-  z-index:1;
+/* chant frame — scrolls all the way around the screen edges, stays put while you scroll */
+.chant-frame{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  pointer-events:none;
+}
+.edge{
+  position:absolute;
   overflow:hidden;
   background:var(--k-black);
-  border-top:2px solid var(--k-red);
-  border-bottom:2px solid var(--k-green);
-  padding:0.9rem 0;
+  display:flex;
+  align-items:center;
 }
-.chant-track{
+.edge-top{ top:0; left:0; right:0; height:26px; border-bottom:2px solid var(--k-red); }
+.edge-bottom{ bottom:0; left:0; right:0; height:26px; border-top:2px solid var(--k-green); }
+.edge-right{ top:26px; bottom:26px; right:0; width:26px; border-left:2px solid var(--k-green); }
+.edge-left{ top:26px; bottom:26px; left:0; width:26px; border-right:2px solid var(--k-red); }
+
+.rotator{
+  position:absolute;
+  top:50%; left:50%;
+  width:100vh;
+  height:26px;
+  transform-origin:center;
+  transform:translate(-50%,-50%) rotate(90deg);
+  display:flex;
+  align-items:center;
+}
+
+.edge-track{
   display:flex;
   width:max-content;
-  animation:marquee 9s linear infinite;
+  animation:edge-scroll 16s linear infinite;
 }
-.chant-set{
+.edge-track.reverse{ animation-direction:reverse; }
+
+.edge-text{
   font-family:'Anton', sans-serif;
-  font-size:1.3rem;
-  letter-spacing:0.04em;
+  font-size:0.78rem;
+  letter-spacing:0.05em;
   color:var(--bone);
   white-space:nowrap;
+  padding:0 0.5rem;
 }
-@keyframes marquee{
+
+@keyframes edge-scroll{
   from{ transform:translateX(0); }
   to{ transform:translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce){
   .num.tick{animation:none;}
-  .chant-track{ animation:none; }
+  .edge-track{ animation:none; }
 }
