@@ -273,6 +273,34 @@ footer{
   letter-spacing:0.04em;
 }
 
+/* chant marquee */
+.chant{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  background:var(--k-black);
+  border-top:2px solid var(--k-red);
+  border-bottom:2px solid var(--k-green);
+  padding:0.9rem 0;
+}
+.chant-track{
+  display:flex;
+  width:max-content;
+  animation:marquee 9s linear infinite;
+}
+.chant-set{
+  font-family:'Anton', sans-serif;
+  font-size:1.3rem;
+  letter-spacing:0.04em;
+  color:var(--bone);
+  white-space:nowrap;
+}
+@keyframes marquee{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce){
   .num.tick{animation:none;}
+  .chant-track{ animation:none; }
 }
